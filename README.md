@@ -2,5 +2,9 @@
 
 #### to use:
 1) copy neoforge/forge server in the /server directory
-2) execute sudo bash start.sh <ramdisk size>
+2) run `sudo bash start.sh <ramdisk-storage-size>`
 3) use ^C or /stop to exit server. 
+
+Notes:
+- ramdisk can only be as large as free memory avalible
+- there could be risk of filesystem corruption so make sure to keep a backup of the server
