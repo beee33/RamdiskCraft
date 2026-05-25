@@ -3,7 +3,7 @@ WORLD_STORAGE="$(pwd)/server"
 WORLD_RAMDISK=$(mktemp -d)
 RAM_USE=$1
 LOG_PREPEND="RAMDISK SCRIPT:"
-
+USER=$(whoami)
 if [ "$RAM_USE" == "" ]
 then
 	echo "$LOG_PREPEND usage: sudo bash start.sh <Ramdisk size>";
@@ -19,7 +19,7 @@ echo "$LOG_PREPEND ramdisk location: $WORLD_RAMDISK";
 move_to_ramdisk() {
 	echo "$LOG_PREPEND moving to ramdisk";
 	sudo mount -t tmpfs none "$WORLD_RAMDISK" -o size="$RAM_USE"
-	sudo chown bee:bee -R "$WORLD_RAMDISK"
+	sudo chown "$USER:$USER" -R "$WORLD_RAMDISK"
 	sudo chmod 711 -R "$WORLD_RAMDISK"
 	cp -r "$WORLD_STORAGE"/* "$WORLD_RAMDISK" || touch "$LOCK_FILE_PATH"
 }
