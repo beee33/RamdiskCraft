@@ -31,6 +31,7 @@ rsync_to_server() {
 reconcile_server_data() {
 	while true
 	do
+		sleep "$WAIT_TIME_SEC"
 		if [  -e "$LOCK_FILE_PATH" ] 
 		then 
 			echo "$LOG_PREPEND backing up";
@@ -38,7 +39,7 @@ reconcile_server_data() {
 		else
 			break
 		fi
-		sleep "$WAIT_TIME_SEC"
+		
 	done
 }
 
