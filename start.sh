@@ -46,7 +46,6 @@ reconcile_server_data() {
 run_minecraft_server() {
 	cd "$WORLD_RAMDISK" 	
 	./run.sh
-	wait
 	echo "$LOG_PREPEND Running final backup"
 	rsync_to_server 
        	echo "$LOG_PREPEND Deleting ramdisk"
