@@ -21,8 +21,7 @@ move_to_ramdisk() {
 	sudo mount -t tmpfs none "$WORLD_RAMDISK" -o size="$RAM_USE"
 	sudo chown bee:bee -R "$WORLD_RAMDISK"
 	sudo chmod 711 -R "$WORLD_RAMDISK"
-	cp -r "$WORLD_STORAGE"/* "$WORLD_RAMDISK"
-       	touch "$LOCK_FILE_PATH"
+	cp -r "$WORLD_STORAGE"/* "$WORLD_RAMDISK" || touch "$LOCK_FILE_PATH"
 }
 
 rsync_to_server() {
