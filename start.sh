@@ -13,7 +13,7 @@ fi
 
 LOCK_FILE="server-ramdisk.lock" 
 LOCK_FILE_PATH="$WORLD_RAMDISK/$LOCK_FILE"
-WAIT_TIME_SEC="240";
+WAIT_TIME_SEC=60;
 
 echo "$LOG_PREPEND ramdisk location: $WORLD_RAMDISK";
 move_to_ramdisk() {
@@ -21,7 +21,7 @@ move_to_ramdisk() {
 	sudo mount -t tmpfs none "$WORLD_RAMDISK" -o size="$RAM_USE"
 	sudo chown "$USER:$USER" -R "$WORLD_RAMDISK"
 	sudo chmod 711 -R "$WORLD_RAMDISK"
-	cp -r "$WORLD_STORAGE"/* "$WORLD_RAMDISK" || touch "$LOCK_FILE_PATH"
+	cp -r "$WORLD_STORAGE"/* "$WORLD_RAMDISK"  && touch "$LOCK_FILE_PATH"
 }
 
 rsync_to_server() {
@@ -45,7 +45,7 @@ reconcile_server_data() {
 run_minecraft_server() {
 	cd "$WORLD_RAMDISK" 	
 	./run.sh
-
+	wait
 	echo "$LOG_PREPEND Running final backup"
 	rsync_to_server 
        	echo "$LOG_PREPEND Deleting ramdisk"
@@ -55,6 +55,6 @@ run_minecraft_server() {
 }
 
 move_to_ramdisk
-reconcile_server_data &
+reconcile_server_data & 
 run_minecraft_server 
 exit
