@@ -25,7 +25,7 @@ move_to_ramdisk() {
 }
 
 rsync_to_server() {
-	rsync -r "$WORLD_RAMDISK/" "$WORLD_STORAGE";
+	rsync -r "$WORLD_RAMDISK/" "$WORLD_STORAGE" || echo "succesfully ran ramdisk backup";
 }
 
 reconcile_server_data() {
